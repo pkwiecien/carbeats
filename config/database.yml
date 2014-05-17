@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: carbeats
+  username: pawel
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: carbeats
+  username: pawel
+  host: localhost
+
