@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-RailsSkeletonApp::Application.load_tasks
+Carbeats::Application.load_tasks

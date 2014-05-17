@@ -13,4 +13,4 @@ def secure_token
   end
 end
 
-RailsSkeletonApp::Application.config.secret_key_base = secure_token
+Carbeats::Application.config.secret_key_base = secure_token

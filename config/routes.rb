@@ -1,4 +1,4 @@
-RailsSkeletonApp::Application.routes.draw do
+Carbeats::Application.routes.draw do
 
   namespace :api do
     # API v1 Routes
