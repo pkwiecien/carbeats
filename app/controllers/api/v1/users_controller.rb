@@ -11,9 +11,9 @@ class Api::V1::UsersController < ApiController
 
     resSong = getOBDData
     resSong.genre = "genre_#{user_genre}"
-    
-    if user_fake == "fake"
-      songR = computePlaylist(resSong,"fake")
+
+    if user_fake == "please"
+      songR = computePlaylist(resSong,"please")
     else
       songR = computePlaylist(resSong,nil)
     end
