@@ -70,14 +70,14 @@ class Api::V1::UsersController < ApiController
     # soong = SongsResponse.new
     # soong = songRes
     #dummydata
-    songRes.average_speed = 20
-    songRes.harsh_breaks = 1
-    songRes.harsh_acceleration = 1
-    songRes.weather = "Sunny"
+    # songRes.average_speed = 20
+    # songRes.harsh_breaks = 1
+    # songRes.harsh_acceleration = 1
+    # songRes.weather = "Sunny"
 
 
     #Cool65326
-    if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Sunny"  )
+    if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Sunny"  && (Time.now.hour >= 6 && Time.now.hour <= 20))
       coolPlaylistResponse = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @cool_res = JSON(coolPlaylistResponse.body)
       songRes.playlist = @cool_res["RESPONSE"]
@@ -104,6 +104,10 @@ class Api::V1::UsersController < ApiController
       urgentPlaylist = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42955;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @urgent_res = JSON(urgentPlaylist.body)
       songRes.playlist = @urgent_res["RESPONSE"]
+    else
+      defaultPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65332', :ssl_version => 'TLSv1', :method => 'get')
+      @default_res = JSON(defaultPlaylist.body)
+      songRes.playlist = @default_res["RESPONSE"]
     end
 
 
