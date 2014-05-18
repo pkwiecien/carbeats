@@ -17,6 +17,9 @@ group :development, :production do
   gem 'rest-client'
 end
 
+group :production do
+  gem 'pg'
+end
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'
