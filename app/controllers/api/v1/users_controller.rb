@@ -7,17 +7,11 @@ class Api::V1::UsersController < ApiController
   # GET /api/v1/users/
   def index
     user_genre = params[:genre]
-    user_fake = params[:fake]
+
 
     resSong = getOBDData
     resSong.genre = "genre_#{user_genre}"
-
-    if user_fake == "fake"
-      songR = computePlaylist(resSong,"fake")
-    else
-      songR = computePlaylist(resSong,nil)
-    end
-
+    songR = computePlaylist(resSong,nil)
 
     render json: {songResult: songR}
 
@@ -72,7 +66,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def computePlaylist(songRes,fake)
-    if(fake not nil)
+    if(!fake.nil?)
       songRes.average_speed = 80
       songRes.harsh_breaks = 3
       songRes.weather = "Sunny"
