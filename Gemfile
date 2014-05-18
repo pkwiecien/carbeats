@@ -13,7 +13,7 @@ end
 group :development, :production do
   # postgres database
   #gem 'pg'
-  gem 'sqlite3'
+
   gem 'rails-api'
   gem 'rails_12factor'
   gem 'rest-client'
