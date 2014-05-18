@@ -10,10 +10,10 @@ class Api::V1::UsersController < ApiController
     # songRes.playlist = @cool_res["RESPONSE"]["ALBUM"]
     # puts songRes.playlist
      resSong = getOBDData
-     songR = computePlaylist(resSong)
+     # songR = computePlaylist(resSong)
      # json_string = songR.to_json
      # newjson = json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
-     render json: {songRes: songR.to_json}
+     render json: {songRes: "yeah well"}
     # render json: {songRes: "yeah well"}
     #  json_string = songR.to_json
     # json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
