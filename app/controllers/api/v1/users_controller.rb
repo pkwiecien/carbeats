@@ -67,14 +67,6 @@ class Api::V1::UsersController < ApiController
 
   def computePlaylist(songRes)
 
-    # soong = SongsResponse.new
-    # soong = songRes
-    #dummydata
-    # songRes.average_speed = 20
-    # songRes.harsh_breaks = 1
-    # songRes.harsh_acceleration = 1
-    # songRes.weather = "Sunny"
-
 
     #Cool65326
     if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Sunny"  && (Time.now.hour >= 6 && Time.now.hour <= 20))
@@ -85,7 +77,7 @@ class Api::V1::UsersController < ApiController
     end
 
     #peacefull easygoing
-    if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Mostly Cloudy" && (Time.now.hour >= 6 && Time.now.hour <= 16) )
+    if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Mostly Cloudy" || songRes.weather == "Clear" && (Time.now.hour >= 6 && Time.now.hour <= 16) )
       peacefulPlaylist = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65322;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @peace_res = JSON(peacefulPlaylist.body)
       songRes.playlist = @peace_res["RESPONSE"]
