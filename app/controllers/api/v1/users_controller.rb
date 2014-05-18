@@ -10,10 +10,10 @@ class Api::V1::UsersController < ApiController
     # songRes.playlist = @cool_res["RESPONSE"]["ALBUM"]
     # puts songRes.playlist
      resSong = getOBDData
-     # songR = computePlaylist(resSong)
+     songR = computePlaylist(resSong)
      # json_string = songR.to_json
      # newjson = json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
-     render json: {songRes: "yeah well"}
+     render json: {songRes: songR.to_json}
     # render json: {songRes: "yeah well"}
     #  json_string = songR.to_json
     # json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
@@ -93,7 +93,7 @@ class Api::V1::UsersController < ApiController
 
     #Cool65326
     if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Sunny"  )
-      coolPlaylistResponse = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326', :ssl_version => 'SSLv3', :method => 'get')
+      coolPlaylistResponse = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326', :ssl_version => 'TLSv1', :method => 'get')
       @cool_res = JSON(coolPlaylistResponse.body)
       songRes.playlist = @cool_res["RESPONSE"]
 
