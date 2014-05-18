@@ -15,6 +15,11 @@ class Api::V1::UsersController < ApiController
 
   end
 
+  def song
+    newpa = params[:genre]
+    render json: {res: newpa}
+  end
+
 
   def getOBDData
     response = RestClient.get 'http://hackathon.services-autoscout24.de/id.php?asset=357322040151927'
