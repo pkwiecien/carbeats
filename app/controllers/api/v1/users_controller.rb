@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApiController
      songR = computePlaylist(resSong)
      # json_string = songR.to_json
      # newjson = json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
-     render json: {songRes: songR.to_json}
+     render json: {songRes: songR}
     # render json: {songRes: "yeah well"}
     #  json_string = songR.to_json
     # json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
@@ -21,17 +21,6 @@ class Api::V1::UsersController < ApiController
     # render :json => JSON::dump(songR)
   end
 
-  # GET /api/v1/users/:id
-  def show
-  end
-
-  # POST /api/v1/users
-  def create
-  end
-
-  # PUT /api/v1/users/:id
-  def update
-  end
 
   def getOBDData
     response = RestClient.get 'http://hackathon.services-autoscout24.de/id.php?asset=357322040151927'
