@@ -77,8 +77,10 @@ class Api::V1::UsersController < ApiController
     resSong = getOBDData
     songR = computePlaylist(resSong)
     # render json: {songRes: resSong.to_json}
-    render json: {songRes: songR.to_json}
-
+    json_string = songR.to_json
+    json_string.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")}
+    render json: {songRes: json_string}
+    # render :json => JSON::dump(songR)
   end
 
   # GET /api/v1/users/:id
