@@ -11,8 +11,6 @@ group :development, :test do
 end
 
 group :development, :production do
-  # postgres database
-
 
   gem 'rails-api'
   gem 'rails_12factor'
