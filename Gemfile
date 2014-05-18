@@ -12,11 +12,15 @@ end
 
 group :development, :production do
   # postgres database
-  #gem 'pg'
+
 
   gem 'rails-api'
   gem 'rails_12factor'
   gem 'rest-client'
+end
+
+group :production do
+  gem 'pg'
 end
 
 group :test do

@@ -172,17 +172,24 @@ class Api::V1::UsersController < ApiController
 
     #peacefull easygoing
     if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Mostly Cloudy" && (Time.now.hour >= 6 && Time.now.hour <= 16) )
-      puts "it's peacefull easygoing"
+      peacefulPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65322', :ssl_version => 'SSLv3', :method => 'get')
+      @peace_res = JSON(peacefulPlaylist.body)
+      songRes.playlist = @peace_res["RESPONSE"]
+
     end
 
     #melancholic
     if(songRes.average_speed > 40 && (songRes.harsh_breaks >= 2 || songRes.harsh_acceleration >= 2) && songRes.weather == "Rain" && (Time.now.hour >= 1 && Time.now.hour <= 6) )
-      puts "it's peacefull easygoing"
+      melanPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42949', :ssl_version => 'SSLv3', :method => 'get')
+      @melan_res = JSON(melanPlaylist.body)
+      songRes.playlist = @melan_res["RESPONSE"]
     end
 
     #urgent
     if(songRes.average_speed > 40 && (songRes.harsh_breaks >= 2 || songRes.harsh_acceleration >= 2) && (songRes.weather == "Sunny" || songRes.weather == "Rain") && ((Time.now.hour >= 6 && Time.now.hour <= 10) || (Time.now.hour >= 16 && Time.now.hour <= 20)) )
-      puts "it's peacefull easygoing"
+      urgentPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42955', :ssl_version => 'SSLv3', :method => 'get')
+      @urgent_res = JSON(urgentPlaylist.body)
+      songRes.playlist = @urgent_res["RESPONSE"]
     end
 
 
