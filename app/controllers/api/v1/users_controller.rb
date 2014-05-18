@@ -6,18 +6,15 @@ class Api::V1::UsersController < ApiController
 
   # GET /api/v1/users/
   def index
+    user_genre = params[:genre]
 
 
     resSong = getOBDData
+    resSong.genre = "genre_#{user_genre}"
     songR = computePlaylist(resSong)
 
-      render json: {songResult: songR}
+    render json: {songResult: songR}
 
-  end
-
-  def song
-    newpa = params[:genre]
-    render json: {res: newpa}
   end
 
 
@@ -81,7 +78,7 @@ class Api::V1::UsersController < ApiController
 
     #Cool65326
     if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Sunny"  )
-      coolPlaylistResponse = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326', :ssl_version => 'TLSv1', :method => 'get')
+      coolPlaylistResponse = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65326;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @cool_res = JSON(coolPlaylistResponse.body)
       songRes.playlist = @cool_res["RESPONSE"]
 
@@ -89,7 +86,7 @@ class Api::V1::UsersController < ApiController
 
     #peacefull easygoing
     if(songRes.average_speed < 40 && (songRes.harsh_breaks < 2 || songRes.harsh_acceleration < 2) && songRes.weather == "Mostly Cloudy" && (Time.now.hour >= 6 && Time.now.hour <= 16) )
-      peacefulPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65322', :ssl_version => 'TLSv1', :method => 'get')
+      peacefulPlaylist = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_65322;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @peace_res = JSON(peacefulPlaylist.body)
       songRes.playlist = @peace_res["RESPONSE"]
 
@@ -97,14 +94,14 @@ class Api::V1::UsersController < ApiController
 
     #melancholic
     if(songRes.average_speed > 40 && (songRes.harsh_breaks >= 2 || songRes.harsh_acceleration >= 2) && songRes.weather == "Rain" && (Time.now.hour >= 1 && Time.now.hour <= 6) )
-      melanPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42949', :ssl_version => 'TLSv1', :method => 'get')
+      melanPlaylist = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42949;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @melan_res = JSON(melanPlaylist.body)
       songRes.playlist = @melan_res["RESPONSE"]
     end
 
     #urgent
     if(songRes.average_speed > 40 && (songRes.harsh_breaks >= 2 || songRes.harsh_acceleration >= 2) && (songRes.weather == "Sunny" || songRes.weather == "Rain") && ((Time.now.hour >= 6 && Time.now.hour <= 10) || (Time.now.hour >= 16 && Time.now.hour <= 20)) )
-      urgentPlaylist = RestClient::Request.execute(:url => 'https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42955', :ssl_version => 'TLSv1', :method => 'get')
+      urgentPlaylist = RestClient::Request.execute(:url => "https://c11493376.web.cddbp.net/webapi/json/1.0/radio/create?client=11493376-2587743DFEA005B0AC22F8C40DB8A4AB&user=263552350177047583-9A591374B87F3A53E1A77FFDA20770A8&seed=mood_42955;#{songRes.genre}", :ssl_version => 'TLSv1', :method => 'get')
       @urgent_res = JSON(urgentPlaylist.body)
       songRes.playlist = @urgent_res["RESPONSE"]
     end
