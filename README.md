@@ -1,5 +1,5 @@
-# Rails Skeleton App
+# Carbeats
 
-The goal of this repository is to provide a skeleton Rails project that can be reused for different projects without a need for loosing time on setting up the environment.
+#### Drive safer while listening to your own playlist
 
-I use this skeleton e.g. during hackathons.
+Carbeats is a context-aware music recommendation system developed during [ Connected Car Hackathon](http://hackathon.autoscout24.de/). See our project's website that describes the app and the system architecure: [Carbeats](http://bit.ly/carbeats)
